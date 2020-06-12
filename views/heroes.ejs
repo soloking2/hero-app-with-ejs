@@ -1,0 +1,50 @@
+
+  <%- include('include/header.ejs')%>
+  <main>
+    <h1><%= title %></h1>
+    <a href="/">Go back</a>
+    <a href="/create-hero" style="margin-top:60px; display: block;">Create Heroes</a>
+    <a href="/squads">View Super Squad</a>
+    <div class="heroes-list">
+      <% if(heroes.length > 0) {%>
+        
+          <% for(let hero of heroes) {%>
+          <div class="hero">
+            <div class="d-flex jc-sb flex-align">
+              <h2>Name: <%= hero.name%></h2>
+
+              <% if(hero.squad) {%>
+                <h4><%=hero.squad %></h4>
+
+                <% }%>
+
+            </div>
+            <h3>Name: <%= hero.origin%></h3>
+            <p><%= hero.description%></p>
+            <ul>
+              <li>S: <%= hero.stats.strength %></li>
+              <li>P: <%= hero.stats.perception %></li>
+              <li>E: <%= hero.stats.endurance %></li>
+              <li>C: <%= hero.stats.charisma %></li>
+              <li>I: <%= hero.stats.intelligence %></li>
+              <li>A: <%= hero.stats.agility %></li>
+              <li>L: <%= hero.stats.luck %></li>
+            </ul>
+           
+
+            <h3>Overall: <%= hero.overall %></h3>
+            <form>
+              <input type="submit" class="link" value="Update" formaction="/update-hero/<%=hero._id%>" formmethod="GET">
+              <input type="submit" class="link" value="Delete" formaction="/delete-hero/<%=hero._id%>" formmethod="POST">
+            
+            </form>
+          </div>
+            <% }%>
+        
+        <% } else { %>
+          <h3>No Heroes to Display</h3>
+          <%}%>
+
+    </div>
+  </main>
+  <%-include('include/footer.ejs')%>

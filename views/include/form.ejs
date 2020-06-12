@@ -1,0 +1,111 @@
+<%if(locals.hero) {%>
+  <form action="/update-hero/<%=hero._id %>" method="POST" autocomplete="off">
+    <%} else {%>
+      <form action="/create-hero" method="POST">
+      <%}%>
+
+      <% 
+        if(locals.hero) {
+          var n = hero.name;
+          var d = hero.description;
+          var o = hero.origin;
+          var str = hero.strength;
+          var per = hero.perception;
+          var end = hero.endurance;
+          var cha = hero.charisma;
+          var i = hero.intelligence;
+          var a = hero.agility;
+          var l = hero.luck;
+        }
+      %>
+      <div class="d-flex jc-sb" style="width: 600px; align-items: center;">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" required <% if(n) {%> value="<%= n %>"<% }%>>
+        </div>
+        <% if(squads.length > 0) { %>
+          <div class="input-group">
+            <label for="squad">Squad</label>
+            <select name="squad" id="squad">
+              <option value="">None</option>
+              <% for(let x=0; x < squads.length; x++){%>
+                <% if(n && squads[x].name === hero.squad) {%>
+                  <option selected value="<%= squads[x].name%>"><%= squads[x].name%></option>
+                  <% }%>
+                <option value="<%= squads[x].name%>"><%= squads[x].name%></option>
+                <% }%>
+            </select>
+          </div>
+          <% }%>
+  </div>
+    <div class="input-group">
+      <label for="description">Description</label>
+      <textarea name="description" id="description" cols="100" rows="5" required><% if(d) {%><%= d %><% }%></textarea>
+    </div>
+    <div class="input-group">
+      <label for="origin">Origin*</label>
+      <input type="text" name="origin" id="origin" <% if(o) {%> value="<%= o %>" <% } %>>
+    </div>
+    <div class="slider-input">
+    <div class="input-group flex-align">
+      <label for="strength">Strength</label>
+      <input type="range" name="strength" id="strength" min="0" max="100" <% if(str) {%> value="<%= str %>" <% } %>>
+      <span class="amount"><%=str || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="perception">Perception</label>
+      <input type="range" name="perception" id="perception" min="0" max="100" <% if(per) {%> value="<%= per %>" <% } %>>
+      <span class="amount"><%=per || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="endurance">Endurance</label>
+      <input type="range" name="endurance" id="endurance" min="0" max="100" <% if(end) {%> value="<%= end %>" <% } %>> 
+      <span class="amount"><%=end || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="charisma">Charisma</label>
+      <input type="range" name="charisma" id="charisma" <% if(cha) {%> value="<%= cha %>" <% } %>>
+      <span class="amount"><%=cha || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="intel">Intelligence</label>
+      <input type="range" name="intelligence" id="intel" min="0" max="100" <% if(i) {%> value="<%= i %>" <% } %>>
+      <span class="amount"><%=i || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="agility">Agility</label>
+      <input type="range" name="agility" id="agility" min="0" max="100" <% if(a) {%> value="<%= a %>" <% } %>> 
+      <span class="amount"><%=a || 50 %></span>
+    </div>
+    <div class="input-group flex-align">
+      <label for="luck">Luck</label>
+      <input type="range" name="luck" id="luck" <% if(l) {%> value="<%= l %>" <% } %>>
+      <span class="amount"><%=l || 50 %></span>
+    </div>
+  </div>
+    <% if(locals.hero) {%>
+    <input type="submit" name="submit" value="Update">
+    <% } else {%>
+      <input type="submit" name="submit" value="Create Hero">
+      <% }%>
+  </form>
+
+  <script>
+    let sliders = document.querySelectorAll('input[type=range]');
+    Array.from(sliders).forEach(elem => {
+      elem.addEventListener('input', () => {
+        let value = elem.value;
+        let parent = elem.parentNode;
+        for(let i=0; i<parent.childNodes.length; i++) {
+          if(parent.childNodes[i].className === 'amount') {
+            parent.childNodes[i].innerHTML = value;
+            break;
+          }
+        }
+  
+      })
+  
+    })
+  </script>
+
+ 

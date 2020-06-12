@@ -1,0 +1,34 @@
+
+  <%- include('include/header.ejs')%>
+  <main>
+    <h1>Hall of Heroes</h1>
+    <a href="/heroes">Go back</a>
+    <a href="/create-squad" style="margin-top:60px; display: block;">Create New Squad</a>
+    
+    <div class="squads">
+
+      <% for(let i=0; i < squads.length; i++) {%>
+        <div class="squad">
+          <h2><small>Squad Name:</small> <%= squads[i].name%> </h2>
+          <h3>Headquarter Location: <%= squads[i].hq%></h3>
+          <details>
+            <summary>Active Members: <%= squads[i].heroes.length%> </summary>
+            <ul>
+              <% for(let j=0; j < squads[i].heroes.length; j++) {%>
+                <li><%= squads[i].heroes[j].name %> (<%= squads[i].heroes[j].overall %>)</li>
+
+                <% }%>
+            </ul>
+          </details>
+          <h2>Squad Overall: <%= squads[i].overall%></h2>
+
+          <form action="/delete-squad/<%=squads[i]._id%>" method="POST">
+            <input type="submit" class="link" value="Disband Squad">
+          </form>
+        </div>
+
+
+        <% }%>
+    </div>
+  </main>
+  <%-include('include/footer.ejs')%>

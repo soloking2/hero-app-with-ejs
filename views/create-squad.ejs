@@ -1,0 +1,22 @@
+  <%- include('include/header.ejs')%>
+  <main>
+    <h1>Create New squad</h1>
+    <a href="javascript:history.back()">Go back</a>
+    
+    <form action="/create-squad" method="POST" autocomplete="off">
+    <div class="align-input-container">
+      <div class="input-group align-input">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+      <div class="input-group align-input">
+        <label for="location">Headquarter Location</label>
+        <input type="text" name="hq" id="location">
+      </div>
+    </div>
+
+    <input type="submit" value="Create a Squad">
+    </form>
+    
+  </main>
+  <%-include('include/footer.ejs')%>
